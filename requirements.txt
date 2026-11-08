@@ -1,0 +1,5 @@
+flask>=3.0
+torch>=2.2
+transformers>=4.40
+pytest>=8.0
+# `tokenizers` is installed automatically with transformers (tests use it to build a tiny model).
