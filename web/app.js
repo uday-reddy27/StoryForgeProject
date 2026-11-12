@@ -110,7 +110,11 @@ function loadModel(modelId) {
   };
 
   const promise = pipeline("text-generation", modelId, {
-    dtype: "q8",                // 8-bit quantised weights: about 4x smaller than full precision
+    // The Xenova/gpt2 and Xenova/distilgpt2 repos on the Hub ship the 8-bit model as
+    // onnx/decoder_model_merged_quantized.onnx (~128 MB / ~85 MB), so we ask for exactly that file:
+    // model_file_name + the "q8" suffix "_quantized". (The default name, model_quantized.onnx, does not exist for gpt2.)
+    model_file_name: "decoder_model_merged",
+    dtype: "q8",
     device: "wasm",
     progress_callback: onProgress,
   });
